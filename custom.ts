@@ -10,11 +10,17 @@
 //% weight=80 color=#fc0345 icon="\uf2db"
 namespace HT16K33 {
     let _buf=pins.createBuffer(11);
-    let i2c_addr: number;
+    let i2c_addr: number; //device address - Seeed 0x71=113
+    let start_display_ram: number;
     
     function send (value:number)
     {
         pins.i2cWriteNumber(i2c_addr, value, NumberFormat.UInt8BE); //start oscillator
+    }
+
+    function send_number (value:number)
+    {
+        pins.i2cWriteBuffer(i2c_addr, _buf);
     }
     /**
      * Initialize display
