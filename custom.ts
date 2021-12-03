@@ -4,35 +4,28 @@
 * Czytaj więcej na https://makecode.microbit.org/blocks/custom
 */
 
-enum MyEnum {
-    //% block="one"
-    One,
-    //% block="two"
-    Two
-}
-
 /**
- * Custom blocks
+ * Alphanumeric display blocks
  */
-//% weight=100 color=#0fbc11 icon=""
-namespace custom {
+//% weight=80 color=#fc0345 icon="\uf2db"
+namespace HT16K33 {
+    let _buf=pins.createBuffer(11);
+    let i2c_addr: number;
+    
+    function send (value:number)
+    {
+        pins.i2cWriteNumber(i2c_addr, value, NumberFormat.UInt8BE); //start oscillator
+    }
     /**
-     * TODO: describe your function here
-     * @param n describe parameter here, eg: 5
-     * @param s describe parameter here, eg: "Hello"
-     * @param e describe parameter here
+     * Initialize display
+     * @param addr I2C address. eg: 113
      */
-    //% block
-    export function foo(n: number, s: string, e: MyEnum): void {
-        // Add code here
+    //% block="Init. I2C address %addr"
+    export function init(addr: number): void {
+        basic.pause(1);
+        i2c_addr=addr;
+        send(0x21); //start oscillator
+
     }
 
-    /**
-     * TODO: describe your function here
-     * @param value describe value here, eg: 5
-     */
-    //% block
-    export function fib(value: number): number {
-        return value <= 1 ? value : fib(value -1) + fib(value - 2);
-    }
 }
