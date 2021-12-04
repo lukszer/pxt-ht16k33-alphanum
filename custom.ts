@@ -20,7 +20,15 @@ namespace HT16K33 {
     let start_display_ram: number;
     let cyfra: number[] = 
     [0b0111100001000100, // 0
-    0b0110000000000000 // 1
+    0b0110000000000000, // 1
+    0b0101100000000111, // 2
+    0b0111000000000111, //3
+    0b0110000001000011, //4
+    0b0011000001000111, //5
+    0b0011100001000111, //6
+    0b0111000000000000, //7
+    0b0111100001000111, //8
+    0b0111000001000111 //9
     ]
 
 
@@ -32,6 +40,7 @@ namespace HT16K33 {
     function send_number ():void
     {
         pins.i2cWriteBuffer(i2c_addr, _buf);
+        send(0x81); //display on
     }
 
     function set_brighntess (value: number):void
@@ -63,12 +72,17 @@ namespace HT16K33 {
         dlugosc = val.toString().length
         _buf [1] = (cyfra[Math.round(val/1000)]>>8) & 0xff;
         _buf [2] = cyfra[Math.round(val / 1000)] & 0xff;
-        _buf[3] = (cyfra[Math.round(val / 100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-        _buf[4] = cyfra[Math.round(val / 100)] & 0xff; //bierzemy 8 młodszych bitów
+        _buf[3] = (cyfra[Math.round((val % 1000)/100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[4] = cyfra[Math.round((val % 1000) / 100)] & 0xff; //bierzemy 8 młodszych bitów
+        _buf[5] = (cyfra[Math.round((val % 100) / 10)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[6] = cyfra[Math.round((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
+        _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
         basic.pause(2000);
-        console.log(_buf[0]);
-        console.log(_buf[1]);
-        console.log(_buf[2]);
+        console.log(Math.round(val / 1000));
+        console.log(Math.round((val % 1000) / 100));
+        console.log(Math.round((val % 100) / 10));
+        console.log(val % 10);
     }
 
 
