@@ -18,7 +18,10 @@ namespace HT16K33 {
     let _buf=pins.createBuffer(11);
     let i2c_addr: number; //device address - Seeed 0x71=113
     let start_display_ram: number;
-    let cyfra: number[] = [0b0111100001000100, 0b0110000000000000]
+    let cyfra: number[] = 
+    [0b0111100001000100, // 0
+    0b0110000000000000 // 1
+    ]
 
 
     function send (value:number):void
@@ -55,11 +58,13 @@ namespace HT16K33 {
     */
     //% block="Display number %val"
     export function dis_num(val: number): void {
+        let dlugosc:number //długość liczby
         _buf [0] = 0x02 //adres w pamieci ram HT odp. pierwszemu wyświetlaczowi
+        dlugosc = val.toString().length
         _buf [1] = (cyfra[Math.round(val/1000)]>>8) & 0xff;
         _buf [2] = cyfra[Math.round(val / 1000)] & 0xff;
-        _buf[3] = (cyfra[Math.round(val / 100)] >> 8) & 0xff;
-        _buf[4] = cyfra[Math.round(val / 100)] & 0xff;
+        _buf[3] = (cyfra[Math.round(val / 100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[4] = cyfra[Math.round(val / 100)] & 0xff; //bierzemy 8 młodszych bitów
         basic.pause(2000);
         console.log(_buf[0]);
         console.log(_buf[1]);
