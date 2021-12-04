@@ -70,18 +70,18 @@ namespace HT16K33 {
         let dlugosc:number //długość liczby
         _buf [0] = 0x02 //adres w pamieci ram HT odp. pierwszemu wyświetlaczowi
         dlugosc = val.toString().length
-        _buf [1] = (cyfra[Math.round(val/1000)]>>8) & 0xff;
-        _buf [2] = cyfra[Math.round(val / 1000)] & 0xff;
-        _buf[3] = (cyfra[Math.round((val % 1000)/100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-        _buf[4] = cyfra[Math.round((val % 1000) / 100)] & 0xff; //bierzemy 8 młodszych bitów
-        _buf[5] = (cyfra[Math.round((val % 100) / 10)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-        _buf[6] = cyfra[Math.round((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
+        _buf [1] = (cyfra[Math.floor(val/1000)]>>8) & 0xff;
+        _buf [2] = cyfra[Math.floor(val / 1000)] & 0xff;
+        _buf[3] = (cyfra[Math.floor((val % 1000)/100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[4] = cyfra[Math.floor((val % 1000) / 100)] & 0xff; //bierzemy 8 młodszych bitów
+        _buf[5] = (cyfra[Math.floor((val % 100) / 10)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+        _buf[6] = cyfra[Math.floor((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
         _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
         _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
         basic.pause(2000);
-        console.log(Math.round(val / 1000));
-        console.log(Math.round((val % 1000) / 100));
-        console.log(Math.round((val % 100) / 10));
+        console.log(Math.floor(val / 1000));
+        console.log(Math.floor((val % 1000) / 100));
+        console.log(Math.floor((val % 100) / 10));
         console.log(val % 10);
     }
 
