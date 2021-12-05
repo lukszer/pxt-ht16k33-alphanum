@@ -96,11 +96,11 @@ namespace HT16K33 {
             _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
             _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
         } else {
-            let znaki_liczby: number[]
+            let znaki_liczby: number[] = [];
             let liczba_string: string;
             liczba_string=val.toString();
-            for (let i=0; i<dlugosc-1; i++){
-                znaki_liczby[i]=parseInt(liczba_string.substr(i,1));
+            for (let i=0; i<dlugosc; i++){
+                znaki_liczby.push(parseInt(liczba_string.substr(i,1)));
                 console.log(znaki_liczby[i]);
             }
         }
