@@ -138,4 +138,14 @@ namespace HT16K33 {
     }
 
 
+
+    /**
+    * Display string
+    * @param val to dispaly
+    */
+    //% weight=85 block="Display string %val"
+    export function dis_string(val: string): void {
+    //add code
+    }
+
 }
