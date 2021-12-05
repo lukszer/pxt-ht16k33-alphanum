@@ -104,19 +104,21 @@ namespace HT16K33 {
                 znaki_liczby.push(parseInt(liczba_string.substr(i,1)));
                 
             }
-            for (let i=0; i<dlugosc-3; i++){
-                _buf[1] = (cyfra[znaki_liczby[i ]] >> 8) & 0xff;
-                _buf[2] = cyfra[znaki_liczby[i ]] & 0xff;
-                _buf[3] = (cyfra[znaki_liczby[i +1]] >> 8) & 0xff;
-                _buf[4] = cyfra[znaki_liczby[i  + 1]] & 0xff;
-                _buf[5] = (cyfra[znaki_liczby[i  + 2]] >> 8) & 0xff;
-                _buf[6] = cyfra[znaki_liczby[i  + 2]] & 0xff;
-                _buf[7] = (cyfra[znaki_liczby[i  + 3]] >> 8) & 0xff;
-                _buf[8] = cyfra[znaki_liczby[i  + 3]] & 0xff
-                console.log(i);
-                basic.pause(2000);
-                send_number();
+            while (1) {
+                for (let i = 0; i < dlugosc - 3; i++) {
+                    _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
+                    _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
+                    _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
+                    _buf[4] = cyfra[znaki_liczby[i + 1]] & 0xff;
+                    _buf[5] = (cyfra[znaki_liczby[i + 2]] >> 8) & 0xff;
+                    _buf[6] = cyfra[znaki_liczby[i + 2]] & 0xff;
+                    _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
+                    _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
+                    send_number();
+                    basic.pause(300);
+                }
             }
+            
         }
         
         
