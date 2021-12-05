@@ -112,8 +112,7 @@ namespace HT16K33 {
                 znaki_liczby.push(10);
             }
 
-            while (1) {
-                for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
+            for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
                     _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
                     _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
                     _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
@@ -123,9 +122,8 @@ namespace HT16K33 {
                     _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
                     _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
                     send_number();
-                    basic.pause(500);
-                }
-                basic.pause(1000);
+                    basic.pause(600);
+
             }
             
         }
