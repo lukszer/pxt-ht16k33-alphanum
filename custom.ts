@@ -33,7 +33,8 @@ namespace HT16K33 {
     0b0011100001000111, //6
     0b0111000000000000, //7
     0b0111100001000111, //8
-    0b0111000001000111 //9
+    0b0111000001000111, //9
+    0b0000000000000000  // null
     ]
 
 
@@ -99,13 +100,20 @@ namespace HT16K33 {
         } else {
             let znaki_liczby: number[] = [];
             let liczba_string: string;
-            liczba_string=val.toString();
+            liczba_string=val.toString(); //zamiana liczby na string
+            
+            for (let i=0;i<3; i++){ //wpisanie na początek 3 pustych znaków
+                znaki_liczby.push(10);
+            }         
             for (let i=0; i<dlugosc; i++){
-                znaki_liczby.push(parseInt(liczba_string.substr(i,1)));
-                
+                znaki_liczby.push(parseInt(liczba_string.substr(i,1))); //zamiana stringa na int i wpisnie kolejnych cyfr liczby do tablicy   
             }
+            for (let i = 0; i < 3; i++) { //wpisanie na końcu 3 pustych znaków
+                znaki_liczby.push(10);
+            }
+
             while (1) {
-                for (let i = 0; i < dlugosc - 3; i++) {
+                for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
                     _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
                     _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
                     _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
