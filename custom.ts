@@ -95,28 +95,31 @@ namespace HT16K33 {
             _buf[6] = cyfra[Math.floor((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
             _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
             _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
+            send_number();
         } else {
             let znaki_liczby: number[] = [];
             let liczba_string: string;
             liczba_string=val.toString();
             for (let i=0; i<dlugosc; i++){
                 znaki_liczby.push(parseInt(liczba_string.substr(i,1)));
-                console.log(znaki_liczby[i]);
+                
             }
-            for (let i=0; i<dlugosc-4;i++){
-                _buf[1] = (cyfra[znaki_liczby[i * 4]] >> 8) & 0xff;
-                _buf[2] = cyfra[znaki_liczby[i * 4]] & 0xff;
-                _buf[3] = (cyfra[znaki_liczby[i * 4+1]] >> 8) & 0xff;
-                _buf[4] = cyfra[znaki_liczby[i * 4 + 1]] & 0xff;
-                _buf[5] = (cyfra[znaki_liczby[i * 4 + 2]] >> 8) & 0xff;
-                _buf[6] = cyfra[znaki_liczby[i * 4 + 2]] & 0xff;
-                _buf[7] = (cyfra[znaki_liczby[i * 4 + 3]] >> 8) & 0xff;
-                _buf[8] = cyfra[znaki_liczby[i * 4 + 3]] & 0xff
-                basic.pause(500);
+            for (let i=0; i<dlugosc-3; i++){
+                _buf[1] = (cyfra[znaki_liczby[i ]] >> 8) & 0xff;
+                _buf[2] = cyfra[znaki_liczby[i ]] & 0xff;
+                _buf[3] = (cyfra[znaki_liczby[i +1]] >> 8) & 0xff;
+                _buf[4] = cyfra[znaki_liczby[i  + 1]] & 0xff;
+                _buf[5] = (cyfra[znaki_liczby[i  + 2]] >> 8) & 0xff;
+                _buf[6] = cyfra[znaki_liczby[i  + 2]] & 0xff;
+                _buf[7] = (cyfra[znaki_liczby[i  + 3]] >> 8) & 0xff;
+                _buf[8] = cyfra[znaki_liczby[i  + 3]] & 0xff
+                console.log(i);
+                basic.pause(2000);
+                send_number();
             }
         }
         
-        send_number();
+        
         //console.log(Math.floor(val / 1000));
         //console.log(Math.floor((val % 1000) / 100));
         //console.log(Math.floor((val % 100) / 10));
