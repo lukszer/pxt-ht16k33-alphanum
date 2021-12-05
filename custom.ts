@@ -103,6 +103,17 @@ namespace HT16K33 {
                 znaki_liczby.push(parseInt(liczba_string.substr(i,1)));
                 console.log(znaki_liczby[i]);
             }
+            for (let i=0; i<dlugosc-4;i++){
+                _buf[1] = (cyfra[znaki_liczby[i * 4]] >> 8) & 0xff;
+                _buf[2] = cyfra[znaki_liczby[i * 4]] & 0xff;
+                _buf[3] = (cyfra[znaki_liczby[i * 4+1]] >> 8) & 0xff;
+                _buf[4] = cyfra[znaki_liczby[i * 4 + 1]] & 0xff;
+                _buf[5] = (cyfra[znaki_liczby[i * 4 + 2]] >> 8) & 0xff;
+                _buf[6] = cyfra[znaki_liczby[i * 4 + 2]] & 0xff;
+                _buf[7] = (cyfra[znaki_liczby[i * 4 + 3]] >> 8) & 0xff;
+                _buf[8] = cyfra[znaki_liczby[i * 4 + 3]] & 0xff
+                basic.pause(500);
+            }
         }
         
         send_number();
