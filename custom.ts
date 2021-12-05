@@ -99,7 +99,7 @@ namespace HT16K33 {
             let znaki_liczby: number[]
             let liczba_string: string;
             liczba_string=val.toString();
-            for (let i=0;i<dlugosc;i++){
+            for (let i=0; i<dlugosc-1; i++){
                 znaki_liczby[i]=parseInt(liczba_string.substr(i,1));
                 console.log(znaki_liczby[i]);
             }
