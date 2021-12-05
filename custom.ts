@@ -44,6 +44,7 @@ namespace HT16K33 {
 
     function send_number ():void
     {
+        send(0x80); //display off
         pins.i2cWriteBuffer(i2c_addr, _buf);
         send(0x81); //display on
     }
@@ -64,6 +65,16 @@ namespace HT16K33 {
         send(0x21); //start oscillator
         set_brighntess(8);
         send(0x80); //display off
+    }
+
+
+    /**
+    * Brightness
+    * @param bright from 0 to 15. eg: 10
+    */
+    //% weight=95 block="Brightness %bright"
+    export function set_bright(bright: number): void {
+        set_brighntess(bright);
     }
 
     /**
