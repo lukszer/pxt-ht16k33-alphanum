@@ -115,8 +115,9 @@ namespace HT16K33 {
                     _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
                     _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
                     send_number();
-                    basic.pause(300);
+                    basic.pause(500);
                 }
+                basic.pause(1000);
             }
             
         }
