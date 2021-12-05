@@ -6,8 +6,13 @@
 
 enum znaki {
     a = 0b0111100001000011,
-    b = 0b0110000000000000,
-    c = 0b0001100001000011
+    b = 0b0110000000000000, //+bity na adresie x0a
+    c = 0b0001100001000100,
+    d = 0b0111000000101100,
+    e = 0b0001100001000111,
+    f = 0b0001100001000011,
+    g = 0b0011100001000101,
+    h = 0b0110100001000011
 }
 
 /**
@@ -78,6 +83,7 @@ namespace HT16K33 {
         _buf[6] = cyfra[Math.floor((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
         _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
         _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
+        send_number();
         basic.pause(2000);
         //console.log(Math.floor(val / 1000));
         //console.log(Math.floor((val % 1000) / 100));
