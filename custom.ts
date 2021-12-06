@@ -113,19 +113,17 @@ namespace HT16K33 {
             }
 
             for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
-                    _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
-                    _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
-                    _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
-                    _buf[4] = cyfra[znaki_liczby[i + 1]] & 0xff;
-                    _buf[5] = (cyfra[znaki_liczby[i + 2]] >> 8) & 0xff;
-                    _buf[6] = cyfra[znaki_liczby[i + 2]] & 0xff;
-                    _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
-                    _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
-                    send_number();
-                    basic.pause(600);
-
-            }
-            
+                _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
+                _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
+                _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
+                _buf[4] = cyfra[znaki_liczby[i + 1]] & 0xff;
+                _buf[5] = (cyfra[znaki_liczby[i + 2]] >> 8) & 0xff;
+                _buf[6] = cyfra[znaki_liczby[i + 2]] & 0xff;
+                _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
+                _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
+                send_number();
+                basic.pause(600);
+            } 
         }
         
         
@@ -143,7 +141,12 @@ namespace HT16K33 {
     */
     //% weight=85 block="Display string %val"
     export function dis_string(val: string): void {
-    //add code
+        let dlugosc: number; //długość liczby
+        let symbol_: number;
+        _buf[0] = 0x02
+        dlugosc = val.length;
+        symbol_ = val.substr(0, 1).charCodeAt(0);
+        //console.log(symbol_ascii[34]);
     }
 
 }
