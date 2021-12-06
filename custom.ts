@@ -4,17 +4,6 @@
 * Czytaj więcej na https://makecode.microbit.org/blocks/custom
 */
 
-enum znaki {
-    a = 0b0111100001000011,
-    b = 0b0110000000000000, //+bity na adresie x0a
-    c = 0b0001100001000100,
-    d = 0b0111000000101100,
-    e = 0b0001100001000111,
-    f = 0b0001100001000011,
-    g = 0b0011100001000101,
-    h = 0b0110100001000011
-}
-
 /**
  * Alphanumeric display blocks
  */
@@ -41,10 +30,47 @@ namespace HT16K33 {
 
     function set_ascii():void
     {
-        for (let i=0;i<34;i++){
+        for (let i=0;i<128;i++){
             symbole_ascii.push(0);
         }
-
+        symbole_ascii[43] = 0b0000000000101011; // +
+        symbole_ascii[45] = 0b0000000000000011; // -
+        symbole_ascii[48] = 0b0111100001000100; // 0
+        symbole_ascii[49] = 0b0110000000000000; // 1
+        symbole_ascii[50] = 0b0101100000000111; // 2
+        symbole_ascii[51] = 0b0111000000000111; // 3
+        symbole_ascii[52] = 0b0110000001000011; // 4
+        symbole_ascii[53] = 0b0011000001000111; // 5
+        symbole_ascii[54] = 0b0011100001000111; // 6
+        symbole_ascii[55] = 0b0111000000000000; // 7
+        symbole_ascii[56] = 0b0111100001000111; // 8
+        symbole_ascii[57] = 0b0111000001000111; // 9
+        symbole_ascii[97] = 0b0111100001000011; // a - tylko małe litery, bo cały string zamieniany na małe litery
+        symbole_ascii[98] = 0b0110000000000000; // b - wyświetlane są i tak wielkie litery
+        symbole_ascii[99] = 0b0001100001000100; // c
+        symbole_ascii[100] = 0b0111000000101100; // d
+        symbole_ascii[101] = 0b0001100001000111; // e
+        symbole_ascii[102] = 0b0001100001000011; // f
+        symbole_ascii[103] = 0b0011100001000101; // g
+        symbole_ascii[104] = 0b0110100001000011; // h
+        symbole_ascii[105] = 97; // i
+        symbole_ascii[106] = 97; // j
+        symbole_ascii[107] = 97; // k
+        symbole_ascii[108] = 97; // l
+        symbole_ascii[109] = 97; // m
+        symbole_ascii[110] = 97; // n
+        symbole_ascii[111] = 97; // o
+        symbole_ascii[112] = 97; // p
+        symbole_ascii[113] = 97; // q
+        symbole_ascii[114] = 97; // r
+        symbole_ascii[115] = 97; // s
+        symbole_ascii[116] = 97; // t
+        symbole_ascii[117] = 97; // u
+        symbole_ascii[118] = 97; // v
+        symbole_ascii[119] = 97; // w
+        symbole_ascii[120] = 97; // x
+        symbole_ascii[121] = 97; // y
+        symbole_ascii[122] = 97; // z
     }
 
     function send (value:number):void
@@ -151,12 +177,20 @@ namespace HT16K33 {
     //% weight=85 block="Display string %val"
     export function dis_string(val: string): void {
         let dlugosc: number; //długość liczby
-        let symbol_: number;
+        let symbol_: number;    
         set_ascii();
-        _buf[0] = 0x02
+        _buf[0] = 0x02;
+        val = val.toLowerCase(); // ustawienie stringu na małe literki
         dlugosc = val.length;
+        if (dlugosc < 5) {
+            for (let i=0;i<4;i++){
+            _buf[i+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;  //np. dzielenie bez reszty 3567/1000 = 3
+            _buf[i+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
+            }
+            send_number();
+        }
+        
         symbol_ = val.substr(0, 1).charCodeAt(0);
-        console.log(symbol_);
     }
 
 }
