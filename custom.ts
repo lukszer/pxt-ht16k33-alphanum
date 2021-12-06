@@ -41,7 +41,9 @@ namespace HT16K33 {
 
     function set_ascii():void
     {
-        symbole_ascii[0]=1;
+        for (let i=0;i<34;i++){
+            symbole_ascii.push(0);
+        }
 
     }
 
