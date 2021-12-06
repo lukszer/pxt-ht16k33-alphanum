@@ -161,11 +161,6 @@ namespace HT16K33 {
             } 
         }
         
-        
-        //console.log(Math.floor(val / 1000));
-        //console.log(Math.floor((val % 1000) / 100));
-        //console.log(Math.floor((val % 100) / 10));
-        //console.log(val % 10);
     }
 
 
@@ -185,13 +180,11 @@ namespace HT16K33 {
             for (let i=0;i<4;i++){
                 _buf[i*2+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;
                 _buf[i*2+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
-                console.log(val.substr(i, 1).charCodeAt(0));
             }
             send_number();
         }
         
-        console.log(_buf[1]);
-        console.log(_buf[2]);
+
         //console.log(Math.floor((val % 1000) / 100));
         //console.log(Math.floor((val % 100) / 10));
         //console.log(val % 10);
