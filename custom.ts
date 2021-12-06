@@ -176,21 +176,25 @@ namespace HT16K33 {
     */
     //% weight=85 block="Display string %val"
     export function dis_string(val: string): void {
-        let dlugosc: number; //długość liczby
-        let symbol_: number;    
+        let dlugosc: number; //długość liczby   
         set_ascii();
         _buf[0] = 0x02;
         val = val.toLowerCase(); // ustawienie stringu na małe literki
         dlugosc = val.length;
         if (dlugosc < 5) {
             for (let i=0;i<4;i++){
-            _buf[i+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;  //np. dzielenie bez reszty 3567/1000 = 3
-            _buf[i+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
+                _buf[i+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;
+                _buf[i+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
+                console.log(val.substr(i, 1).charCodeAt(0));
             }
             send_number();
         }
         
-        symbol_ = val.substr(0, 1).charCodeAt(0);
+        console.log(_buf[1]);
+        console.log(_buf[2]);
+        //console.log(Math.floor((val % 1000) / 100));
+        //console.log(Math.floor((val % 100) / 10));
+        //console.log(val % 10);
     }
 
 }
