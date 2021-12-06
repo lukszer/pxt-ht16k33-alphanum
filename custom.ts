@@ -37,7 +37,7 @@ namespace HT16K33 {
     0b0000000000000000  // null
     ]
 
-    let symbole_ascii: number[];
+    let symbole_ascii: number[] = [];
 
     function set_ascii():void
     {
