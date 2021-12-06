@@ -183,8 +183,8 @@ namespace HT16K33 {
         dlugosc = val.length;
         if (dlugosc < 5) {
             for (let i=0;i<4;i++){
-                _buf[i+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;
-                _buf[i+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
+                _buf[i*2+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;
+                _buf[i*2+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
                 console.log(val.substr(i, 1).charCodeAt(0));
             }
             send_number();
