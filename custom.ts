@@ -46,31 +46,31 @@ namespace HT16K33 {
         symbole_ascii[56] = 0b0111100001000111; // 8
         symbole_ascii[57] = 0b0111000001000111; // 9
         symbole_ascii[97] = 0b0111100001000011; // a - tylko małe litery, bo cały string zamieniany na małe litery
-        symbole_ascii[98] = 0b0110000000000000; // b - wyświetlane są i tak wielkie litery
-        symbole_ascii[99] = 0b0001100001000100; // c
+        symbole_ascii[98] = 0b0110000000000000; // b + 0x0a 2 bity
+        symbole_ascii[99] = 0b0001100001000100; // c - kod bitowy odpowiada wielkim literom
         symbole_ascii[100] = 0b0111000000101100; // d
         symbole_ascii[101] = 0b0001100001000111; // e
         symbole_ascii[102] = 0b0001100001000011; // f
         symbole_ascii[103] = 0b0011100001000101; // g
         symbole_ascii[104] = 0b0110100001000011; // h
-        symbole_ascii[105] = 97; // i
-        symbole_ascii[106] = 97; // j
-        symbole_ascii[107] = 97; // k
-        symbole_ascii[108] = 97; // l
-        symbole_ascii[109] = 97; // m
-        symbole_ascii[110] = 97; // n
-        symbole_ascii[111] = 97; // o
-        symbole_ascii[112] = 97; // p
-        symbole_ascii[113] = 97; // q
-        symbole_ascii[114] = 97; // r
-        symbole_ascii[115] = 97; // s
-        symbole_ascii[116] = 97; // t
-        symbole_ascii[117] = 97; // u
-        symbole_ascii[118] = 97; // v
-        symbole_ascii[119] = 97; // w
-        symbole_ascii[120] = 97; // x
-        symbole_ascii[121] = 97; // y
-        symbole_ascii[122] = 97; // z
+        symbole_ascii[105] = 0b0001000000101100; // i
+        symbole_ascii[106] = 0b0111000000010100; // j
+        symbole_ascii[107] = 0b0000000000101000; // k + 0x0a 2 bity
+        symbole_ascii[108] = 0b0000100001000100; // l
+        symbole_ascii[109] = 0b1110100001000000; // m + 0x0a 1 bit
+        symbole_ascii[110] = 0b1110100001000000; // n + 0x0a 1 bit
+        symbole_ascii[111] = 0b0111100001000100; // o
+        symbole_ascii[112] = 0b0101100001000011; // p
+        symbole_ascii[113] = 0b0111100001000100; // q + 0x0a 1 bit
+        symbole_ascii[114] = 0b0101100001000011; // r + 0x0a 1 bit
+        symbole_ascii[115] = 0b0011000001000111; // s
+        symbole_ascii[116] = 0b0001000000101000; // t
+        symbole_ascii[117] = 0b0110100001000100; // u
+        symbole_ascii[118] = 0b1110000000000000; // v + 0x0a 1 bit
+        symbole_ascii[119] = 0b0110100001010000; // w + 0x0a 1 bit
+        symbole_ascii[120] = 0b1000000000010000; // x + 0x0a 2 bit
+        symbole_ascii[121] = 0b1000000000001000; // y + 0x0a 1 bit
+        symbole_ascii[122] = 0b0001000000010100; // z + 0x0a 1 bit
     }
 
     function send (value:number):void
@@ -97,12 +97,12 @@ namespace HT16K33 {
     //% weight=100 block="Init. I2C address %addr"
     export function init(addr: number): void {
         basic.pause(1);
+        set_ascii();
         i2c_addr=addr;
         send(0x21); //start oscillator
         set_brighntess(8);
         send(0x80); //display off
     }
-
 
     /**
     * Brightness
@@ -170,7 +170,6 @@ namespace HT16K33 {
     //% weight=85 block="Display string %val"
     export function dis_string(val: string): void {
         let dlugosc: number; //długość liczby   
-        set_ascii();
         _buf[0] = 0x02;
         val = val.toLowerCase(); // ustawienie stringu na małe literki
         dlugosc = val.length;
