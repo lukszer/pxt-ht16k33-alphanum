@@ -163,8 +163,6 @@ namespace HT16K33 {
         
     }
 
-
-
     /**
     * Display string
     * @param val to dispaly
@@ -184,7 +182,6 @@ namespace HT16K33 {
             send_number();
         }
         
-
         //console.log(Math.floor((val % 1000) / 100));
         //console.log(Math.floor((val % 100) / 10));
         //console.log(val % 10);
