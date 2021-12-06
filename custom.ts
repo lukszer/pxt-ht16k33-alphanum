@@ -146,7 +146,7 @@ namespace HT16K33 {
         _buf[0] = 0x02
         dlugosc = val.length;
         symbol_ = val.substr(0, 1).charCodeAt(0);
-        //console.log(symbol_ascii[34]);
+        console.log(symbol_);
     }
 
 }
