@@ -39,6 +39,12 @@ namespace HT16K33 {
 
     let symbole_ascii: number[];
 
+    function set_ascii():void
+    {
+        symbole_ascii[0]=1;
+
+    }
+
     function send (value:number):void
     {
         pins.i2cWriteNumber(i2c_addr, value, NumberFormat.UInt8BE); //start oscillator
@@ -144,6 +150,7 @@ namespace HT16K33 {
     export function dis_string(val: string): void {
         let dlugosc: number; //długość liczby
         let symbol_: number;
+        set_ascii();
         _buf[0] = 0x02
         dlugosc = val.length;
         symbol_ = val.substr(0, 1).charCodeAt(0);
