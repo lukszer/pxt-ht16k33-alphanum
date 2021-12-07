@@ -11,7 +11,6 @@
 namespace HT16K33 {
     let _buf=pins.createBuffer(11);
     let i2c_addr: number; //device address - Seeed 0x71=113
-    let start_display_ram: number;
     let cyfra: number[] = 
     [0b0111100001000100, // 0
     0b0110000000000000, // 1
@@ -168,7 +167,7 @@ namespace HT16K33 {
         set_ascii();
         i2c_addr=addr;
         send(0x21); //start oscillator
-        set_brighntess(8);
+        set_brighntess(10);
         send(0x80); //display off
     }
 
@@ -188,17 +187,17 @@ namespace HT16K33 {
     //% weight=90 block="Display number %val"
     export function dis_num(val: number): void {
         let dlugosc:number //długość liczby
+        let liczba_string: string;
         _buf [0] = 0x02 //adres w pamieci ram HT odp. pierwszemu wyświetlaczowi
-        dlugosc = val.toString().length
-        if (dlugosc<5) {
-            _buf[1] = (cyfra[Math.floor(val / 1000)] >> 8) & 0xff;  //np. dzielenie bez reszty 3567/1000 = 3
-            _buf[2] = cyfra[Math.floor(val / 1000)] & 0xff;
-            _buf[3] = (cyfra[Math.floor((val % 1000) / 100)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-            _buf[4] = cyfra[Math.floor((val % 1000) / 100)] & 0xff; //bierzemy 8 młodszych bitów
-            _buf[5] = (cyfra[Math.floor((val % 100) / 10)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-            _buf[6] = cyfra[Math.floor((val % 100) / 10)] & 0xff; //bierzemy 8 młodszych bitów
-            _buf[7] = (cyfra[val % 10] >> 8) & 0xff; //bierzemy 8 starszych bitów
-            _buf[8] = cyfra[val % 10] & 0xff; //bierzemy 8 młodszych bitów
+        liczba_string = val.toString();
+        dlugosc = liczba_string.length
+        if (dlugosc<5) 
+        {
+            for (let i=0; i<4; i++)
+            {
+                _buf[i * 2 + 1] = (symbole_ascii[liczba_string.substr(i, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+                _buf[i * 2 + 2] = symbole_ascii[liczba_string.substr(i, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
+            }
             send_number();
         } else {
             let znaki_liczby: number[] = [];
