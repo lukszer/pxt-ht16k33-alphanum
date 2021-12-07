@@ -11,23 +11,9 @@
 namespace HT16K33 {
     let _buf=pins.createBuffer(11);
     let i2c_addr: number; //device address - Seeed 0x71=113
-    let cyfra: number[] = 
-    [0b0111100001000100, // 0
-    0b0110000000000000, // 1
-    0b0101100000000111, // 2
-    0b0111000000000111, //3
-    0b0110000001000011, //4
-    0b0011000001000111, //5
-    0b0011100001000111, //6
-    0b0111000000000000, //7
-    0b0111100001000111, //8
-    0b0111000001000111, //9
-    0b0000000000000000  // null
-    ]
-
     let symbole_ascii: number[] = [];
 
-    function set_ascii():void
+    function set_ascii():void //przypisanie do kodów ascii odpowednich wartości bitowych
     {
         for (let i=0;i<128;i++){ //wszystko wypelniamy 0 - jeśli brak symbolu to wyświetlacz nie zapali się
             symbole_ascii.push(0);
@@ -86,7 +72,7 @@ namespace HT16K33 {
 
     function set_brighntess (value: number):void
     {
-        send (0xe0 | value);
+        send (0xe0 | value); //suma bitowa
     }
 
     //wyświetlacz jest błędnie skonstruowany, ukośne ledy zapalane są
@@ -186,12 +172,12 @@ namespace HT16K33 {
     */
     //% weight=90 block="Display number %val"
     export function dis_num(val: number): void {
-        let dlugosc:number //długość liczby
-        let liczba_string: string;
+        let dlugosc:number //ilość znaków liczby
+        let liczba_string: string; //zmienna pzechowująca liczbę w postaci stringu
         _buf [0] = 0x02 //adres w pamieci ram HT odp. pierwszemu wyświetlaczowi
         liczba_string = val.toString();
         dlugosc = liczba_string.length
-        if (dlugosc<5) 
+        if (dlugosc<5) //jeżeli ilość znaków 4 lub mniej to bez scrolla
         {
             for (let i=0; i<4; i++)
             {
