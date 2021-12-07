@@ -99,15 +99,19 @@ namespace HT16K33 {
                 case 1: 
                     _buf[9] = 0b00011000;
                     _buf[10] = 0b00000000;
+                    break;
                 case 2:
                     _buf[9] = 0b01000000;
                     _buf[10] = 0b01000000;
+                    break;
                 case 3:
                     _buf[9] = 0b00100000;
                     _buf[10] = 0b00000010;
+                    break;
                 case 4:
                     _buf[9] = 0b00000000;
                     _buf[10] = 0b00000101;
+                    break;
             }
         }
         if (litera == "k") {
