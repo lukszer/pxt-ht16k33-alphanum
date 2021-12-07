@@ -46,7 +46,7 @@ namespace HT16K33 {
         symbole_ascii[56] = 0b0111100001000111; // 8
         symbole_ascii[57] = 0b0111000001000111; // 9
         symbole_ascii[97] = 0b0111100001000011; // a - tylko małe litery, bo cały string zamieniany na małe litery
-        symbole_ascii[98] = 0b0110000000000000; // b + 0x0a 2 bity
+        symbole_ascii[98] = 0b0001100001000110; // b + 0x0a 2 bity
         symbole_ascii[99] = 0b0001100001000100; // c - kod bitowy odpowiada wielkim literom
         symbole_ascii[100] = 0b0111000000101100; // d
         symbole_ascii[101] = 0b0001100001000111; // e
@@ -88,6 +88,58 @@ namespace HT16K33 {
     function set_brighntess (value: number):void
     {
         send (0xe0 | value);
+    }
+
+    //wyświetlacz jest błędnie skonstruowany, ukośne ledy zapalane są
+    //na adresie 0x0a i 0x0b
+    function set_bledne_litery(litera: string, nr: number):void
+    {
+        if (litera == "b") {
+            switch (nr) {
+                case 1: 
+                    _buf[9] = 0b00011000;
+                    _buf[10] = 0b00000000;
+                case 2:
+                    _buf[9] = 0b01000000;
+                    _buf[10] = 0b01000000;
+                case 3:
+                    _buf[9] = 0b00100000;
+                    _buf[10] = 0b00000010;
+                case 4:
+                    _buf[9] = 0b00000000;
+                    _buf[10] = 0b00000101;
+            }
+        }
+        if (litera == "k") {
+
+        }
+        if (litera == "m") {
+
+        }
+        if (litera == "n") {
+
+        }
+        if (litera == "q") {
+
+        }
+        if (litera == "r") {
+
+        }
+        if (litera == "v") {
+
+        }
+        if (litera == "w") {
+
+        }
+        if (litera == "x") {
+
+        }
+        if (litera == "y") {
+
+        }
+        if (litera == "z") {
+
+        }
     }
 
     /**
@@ -177,6 +229,9 @@ namespace HT16K33 {
             for (let i=0;i<4;i++){
                 _buf[i*2+1] = (symbole_ascii[val.substr(i, 1).charCodeAt(0)] >> 8) & 0xff;
                 _buf[i*2+2] = symbole_ascii[val.substr(i, 1).charCodeAt(0)] & 0xff;
+                if (val.substr(i, 1) == "b" || val.substr(i, 1) == "k" || val.substr(i, 1) == "m" || val.substr(i, 1) == "n" || val.substr(i, 1) == "q" || val.substr(i, 1) == "r" || val.substr(i, 1) == "v" || val.substr(i, 1) == "w" || val.substr(i, 1) == "x" || val.substr(i, 1) == "y" || val.substr(i, 1) == "z") {
+                    set_bledne_litery(val.substr(i, 1), i+1);
+                }
             }
             send_number();
         }
