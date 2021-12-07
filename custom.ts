@@ -94,10 +94,10 @@ namespace HT16K33 {
     //na adresie 0x0a i 0x0b
     function set_bledne_litery(litera: string, nr: number):void
     {
-        if (litera == "b") {
+        if (litera == "b" || litera == "k") {
             switch (nr) {
                 case 1: 
-                    _buf[9] = _buf[9] | 0b00011000;
+                    _buf[9] = _buf[9] | 0b00011000; //suma bitowa ponieważ na raz może być wyświetlonych wiecej znaków z błędami
                     _buf[10] = _buf[10] | 0b00000000;
                     break;
                 case 2:
@@ -114,9 +114,7 @@ namespace HT16K33 {
                     break;
             }
         }
-        if (litera == "k") {
-
-        }
+    
         if (litera == "m") {
 
         }
