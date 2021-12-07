@@ -180,9 +180,9 @@ namespace HT16K33 {
         if (dlugosc<5) //jeżeli ilość znaków 4 lub mniej to bez scrolla
         {
             switch (dlugosc){ //dodaanie na początku, żeby krótsze liczby wyświetlały się od prawego segmentu
-                case 1: liczba_string ="  "+liczba_string;
-                case 2: liczba_string =" "+liczba_string;
-                case 3: liczba_string =""+liczba_string;
+                case 1: liczba_string ="   "+liczba_string; break;
+                case 2: liczba_string ="  "+liczba_string; break;
+                case 3: liczba_string =" "+liczba_string; break;
             }
             for (let i=0; i<4; i++)
             {
