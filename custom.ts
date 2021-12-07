@@ -29,7 +29,7 @@ namespace HT16K33 {
 
     function set_ascii():void
     {
-        for (let i=0;i<128;i++){
+        for (let i=0;i<128;i++){ //wszystko wypelniamy 0 - jeśli brak symbolu to wyświetlacz nie zapali się
             symbole_ascii.push(0);
         }
         symbole_ascii[43] = 0b0000000000101011; // +
@@ -201,30 +201,15 @@ namespace HT16K33 {
             send_number();
         } else {
             let znaki_liczby: number[] = [];
-            let liczba_string: string;
-            liczba_string=val.toString(); //zamiana liczby na string
+            liczba_string = "   " + liczba_string + "   ";
             
-            for (let i=0;i<3; i++){ //wpisanie na początek 3 pustych znaków
-                znaki_liczby.push(10);
-            }         
-            for (let i=0; i<dlugosc; i++){
-                znaki_liczby.push(parseInt(liczba_string.substr(i,1))); //zamiana stringa na int i wpisnie kolejnych cyfr liczby do tablicy   
-            }
-            for (let i = 0; i < 3; i++) { //wpisanie na końcu 3 pustych znaków
-                znaki_liczby.push(10);
-            }
-
             for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
-                _buf[1] = (cyfra[znaki_liczby[i]] >> 8) & 0xff;
-                _buf[2] = cyfra[znaki_liczby[i]] & 0xff;
-                _buf[3] = (cyfra[znaki_liczby[i + 1]] >> 8) & 0xff;
-                _buf[4] = cyfra[znaki_liczby[i + 1]] & 0xff;
-                _buf[5] = (cyfra[znaki_liczby[i + 2]] >> 8) & 0xff;
-                _buf[6] = cyfra[znaki_liczby[i + 2]] & 0xff;
-                _buf[7] = (cyfra[znaki_liczby[i + 3]] >> 8) & 0xff;
-                _buf[8] = cyfra[znaki_liczby[i + 3]] & 0xff
+                for (let j = 0; j < 4; j++) {
+                    _buf[j * 2 + 1] = (symbole_ascii[liczba_string.substr(i*4+j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+                    _buf[j * 2 + 2] = symbole_ascii[liczba_string.substr(i*4+j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
+                }
                 send_number();
-                basic.pause(600);
+                basic.pause(600);               
             } 
         }
         
