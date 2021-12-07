@@ -205,8 +205,8 @@ namespace HT16K33 {
             
             for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
                 for (let j = 0; j < 4; j++) {
-                    _buf[j * 2 + 1] = (symbole_ascii[liczba_string.substr(i*4+j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
-                    _buf[j * 2 + 2] = symbole_ascii[liczba_string.substr(i*4+j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
+                    _buf[j * 2 + 1] = (symbole_ascii[liczba_string.substr(i+j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
+                    _buf[j * 2 + 2] = symbole_ascii[liczba_string.substr(i+j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
                 }
                 send_number();
                 basic.pause(600);               
