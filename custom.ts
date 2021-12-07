@@ -102,10 +102,6 @@ namespace HT16K33 {
         send(0x21); //start oscillator
         set_brighntess(8);
         send(0x80); //display off
-        _buf[0]=0x0a;
-        _buf[1]=0b00100000;
-        _buf[2]=0b00000000;
-        send_number();
     }
 
     /**
