@@ -179,6 +179,11 @@ namespace HT16K33 {
         dlugosc = liczba_string.length
         if (dlugosc<5) //jeżeli ilość znaków 4 lub mniej to bez scrolla
         {
+            switch (dlugosc){ //dodaanie na początku, żeby krótsze liczby wyświetlały się od prawego segmentu
+                case 1: "   "+liczba_string;
+                case 2: "  "+liczba_string;
+                case 3: " "+liczba_string;
+            }
             for (let i=0; i<4; i++)
             {
                 _buf[i * 2 + 1] = (symbole_ascii[liczba_string.substr(i, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
@@ -187,7 +192,7 @@ namespace HT16K33 {
             send_number();
         } else {
             let znaki_liczby: number[] = [];
-            liczba_string = "   " + liczba_string + "   ";
+            liczba_string = "   " + liczba_string + "   "; //dodanie na początku i końcu pustych znaków
             
             for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
                 for (let j = 0; j < 4; j++) {
