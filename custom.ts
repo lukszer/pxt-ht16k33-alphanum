@@ -209,7 +209,7 @@ namespace HT16K33 {
                     _buf[j * 2 + 2] = symbole_ascii[liczba_string.substr(i+j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
                 }
                 send_number();
-                basic.pause(600);               
+                basic.pause(400);  //scroll speed            
             } 
         }
         
