@@ -66,7 +66,7 @@ namespace HT16K33 {
         symbole_ascii[115] = 0b0011000001000111; // s
         symbole_ascii[116] = 0b0001000000101000; // t
         symbole_ascii[117] = 0b0110100001000100; // u
-        symbole_ascii[118] = 0b1000000000000000; // v + 0x0a 1 bit
+        symbole_ascii[118] = 0b1110000000000000; // v + 0x0a 1 bit
         symbole_ascii[119] = 0b0110100001010000; // w + 0x0a 1 bit
         symbole_ascii[120] = 0b1000000000010000; // x + 0x0a 2 bit
         symbole_ascii[121] = 0b1000000000001000; // y + 0x0a 1 bit
@@ -115,7 +115,7 @@ namespace HT16K33 {
             }
         }
     
-        if (litera == "m" || litera == "v" || litera == "y" || litera == "z") {
+        if (litera == "m" || litera == "y" || litera == "z") {
             switch (nr) {
                 case 1:
                     _buf[9] = _buf[9] | 0b00010000; //suma bitowa ponieważ na raz może być wyświetlonych wiecej znaków z błędami
@@ -135,7 +135,7 @@ namespace HT16K33 {
                     break;
             }
         }
-        if (litera == "n" || litera== "q" || litera == "r" || litera=="w") {
+        if (litera == "n" || litera== "q" || litera == "r" || litera=="v" || litera=="w") {
             switch (nr) {
                 case 1:
                     _buf[9] = _buf[9] | 0b00001000; //suma bitowa ponieważ na raz może być wyświetlonych wiecej znaków z błędami
