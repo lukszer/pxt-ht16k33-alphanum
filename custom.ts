@@ -229,18 +229,18 @@ namespace HT16K33 {
         } else{
             val = "   " + val + "   "; //dodanie na końcu i początku pustych znaków
             for (let i = 0; i < dlugosc - 3 + 3 + 3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
+                _buf[9]=0;
+                _buf[10]=0;
+                send_number();
                 for (let j = 0; j < 4; j++) {
                     _buf[j * 2 + 1] = (symbole_ascii[val.substr(i + j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
                     _buf[j * 2 + 2] = symbole_ascii[val.substr(i + j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
                     if (val.substr(i+j, 1) == "b" || val.substr(i+j, 1) == "k" || val.substr(i+j, 1) == "m" || val.substr(i+j, 1) == "n" || val.substr(i+j, 1) == "q" || val.substr(i+j, 1) == "r" || val.substr(i+j, 1) == "v" || val.substr(i+j, 1) == "w" || val.substr(i+j, 1) == "x" || val.substr(i+j, 1) == "y" || val.substr(i+j, 1) == "z") {
-                        set_bledne_litery(val.substr(i+j, 1), j);
+                        set_bledne_litery(val.substr(i+j, 1), j+1);
                     }
                 }
                 send_number();
                 basic.pause(400);  //scroll speed
-                _buf[9] = 0;
-                _buf[10] = 0;
-                send_number();
             }
         
         //console.log(Math.floor((val % 1000) / 100));
