@@ -198,8 +198,10 @@ namespace HT16K33 {
                     _buf[j * 2 + 1] = (symbole_ascii[liczba_string.substr(i+j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
                     _buf[j * 2 + 2] = symbole_ascii[liczba_string.substr(i+j, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
                 }
+                
                 send_number();
-                basic.pause(400);  //scroll speed            
+                basic.pause(400);  //scroll speed
+
             } 
         }
         
@@ -236,6 +238,9 @@ namespace HT16K33 {
                 }
                 send_number();
                 basic.pause(400);  //scroll speed
+                _buf[9] = 0;
+                _buf[10] = 0;
+                send_number();
             }
         
         //console.log(Math.floor((val % 1000) / 100));
