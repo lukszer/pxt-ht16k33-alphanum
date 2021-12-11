@@ -15,7 +15,7 @@ namespace HT16K33 {
 
     function set_ascii():void //przypisanie do kodów ascii odpowednich wartości bitowych
     {
-        for (let i=0;i<128;i++){ //wszystko wypelniamy 0 - jeśli brak symbolu to wyświetlacz nie zapali się
+        for (let i=0;i<128;i++){ //wszystko wypelniamy 0 - jeśli brak zdefiniowanego symbolu to wyświetlacz nie zapali się
             symbole_ascii.push(0);
         }
         symbole_ascii[43] = 0b0000000000101011; // +
@@ -60,7 +60,7 @@ namespace HT16K33 {
 
     function send (value:number):void
     {
-        pins.i2cWriteNumber(i2c_addr, value, NumberFormat.UInt8BE); //start oscillator
+        pins.i2cWriteNumber(i2c_addr, value, NumberFormat.UInt8BE); 
     }
 
     function send_number ():void
@@ -72,7 +72,7 @@ namespace HT16K33 {
 
     function set_brighntess (value: number):void
     {
-        send (0xe0 | value); //suma bitowa
+        send (0xe0 | value); //suma bitowa value=0..15
     }
 
     //wyświetlacz jest błędnie skonstruowany, ukośne ledy zapalane są
@@ -151,9 +151,9 @@ namespace HT16K33 {
     export function init(addr: number): void {
         basic.pause(1);
         set_ascii();
-        i2c_addr=addr;
+        i2c_addr=addr; //set display address, default 0x71=113
         send(0x21); //start oscillator
-        set_brighntess(10);
+        set_brighntess(10); //default brightness
         send(0x80); //display off
     }
 
@@ -175,14 +175,14 @@ namespace HT16K33 {
         let dlugosc:number //ilość znaków liczby
         let liczba_string: string; //zmienna pzechowująca liczbę w postaci stringu
         _buf [0] = 0x02 //adres w pamieci ram HT odp. pierwszemu wyświetlaczowi
-        liczba_string = val.toString();
-        dlugosc = liczba_string.length
+        liczba_string = val.toString(); //zamiana liczby na string
+        dlugosc = liczba_string.length  //określenie długości stringa
         if (dlugosc<5) //jeżeli ilość znaków 4 lub mniej to bez scrolla
         {
             switch (dlugosc){ //dodaanie na początku, żeby krótsze liczby wyświetlały się od prawego segmentu
-                case 1: liczba_string ="   "+liczba_string; break;
-                case 2: liczba_string ="  "+liczba_string; break;
-                case 3: liczba_string =" "+liczba_string; break;
+                case 1: liczba_string ="   " + liczba_string; break;
+                case 2: liczba_string ="  " + liczba_string; break;
+                case 3: liczba_string =" " + liczba_string; break;
             }
             for (let i=0; i<4; i++)
             {
@@ -190,7 +190,7 @@ namespace HT16K33 {
                 _buf[i * 2 + 2] = symbole_ascii[liczba_string.substr(i, 1).charCodeAt(0)] & 0xff; //bierzemy 8 młodszych bitów
             }
             send_number();
-        } else {
+        } else { //jeżeli długość większa niż 4, to scroll
             liczba_string = "   " + liczba_string + "   "; //dodanie na początku i końcu pustych znaków
             
             for (let i = 0; i < dlugosc - 3+3+3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
@@ -213,9 +213,9 @@ namespace HT16K33 {
     */
     //% weight=85 block="Display string %val"
     export function dis_string(val: string): void {
-        let dlugosc: number; //długość liczby   
+        let dlugosc: number; //długość stringa  
         _buf[0] = 0x02;
-        val = val.toLowerCase(); // ustawienie stringu na małe literki
+        val = val.toLowerCase(); // ustawienie stringa na małe literki
         dlugosc = val.length;
         if (dlugosc < 5) {
             for (let i=0;i<4;i++){
@@ -229,8 +229,8 @@ namespace HT16K33 {
         } else{
             val = "   " + val + "   "; //dodanie na końcu i początku pustych znaków
             for (let i = 0; i < dlugosc - 3 + 3 + 3; i++) { //+3+3, bo na poczatku i koncu dopisane znaki puste
-                _buf[9]=0;
-                _buf[10]=0;
+                _buf[9]=0; //czyszczenie ukośnych ledów
+                _buf[10]=0; // czyszczenie ukośnych ledów
                 send_number();
                 for (let j = 0; j < 4; j++) {
                     _buf[j * 2 + 1] = (symbole_ascii[val.substr(i + j, 1).charCodeAt(0)] >> 8) & 0xff; //bierzemy 8 starszych bitów
