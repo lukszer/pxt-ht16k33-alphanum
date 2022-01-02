@@ -249,4 +249,24 @@ namespace HT16K33 {
         }
     }
 
+    /**
+    * Display colon :
+    * @param val to dispaly
+    */
+    //% weight=80 block="Display string %val"
+    export function dis_colon(val: string): void {
+        _buf[0] = 0x02;
+
+        _buf[9] = _buf[9] | 0b00000000;
+        _buf[10] = _buf[10] | 0b01000000;
+        send_number();
+        
+
+        //console.log(Math.floor((val % 1000) / 100));
+        //console.log(Math.floor((val % 100) / 10));
+        //console.log(val % 10);
+        
+    }
+
+
 }
