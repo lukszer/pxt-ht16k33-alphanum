@@ -5,10 +5,10 @@
 */
 
 enum colon_set {
-    //% block=1
-    show,
-    //% block=2
-    hidde
+    //% block="show"
+    show = 1,
+    //% block="hidde"
+    hidde = 0
 }
 
 
