@@ -269,7 +269,8 @@ namespace HT16K33 {
             _buf[10] = _buf[10] | 0b00100000;
             send_number();
             console.log("ok");
-        } else {
+        } 
+        if (val=2) {
             _buf[9] = _buf[9] & 0b01111111;
             _buf[10] = _buf[10] & 0b11011111;
             send_number();
