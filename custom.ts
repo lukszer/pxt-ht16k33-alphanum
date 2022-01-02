@@ -253,7 +253,7 @@ namespace HT16K33 {
     * Display colon :
     * @param val to dispaly
     */
-    //% weight=80 block="Display string %val"
+    //% weight=80 block="Colon %val"
     export function dis_colon(val: string): void {
         _buf[0] = 0x02;
 
