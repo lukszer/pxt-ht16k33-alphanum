@@ -264,7 +264,7 @@ namespace HT16K33 {
     export function dis_colon(val: colon_set): void {
         _buf[0] = 0x02;
 
-        if (val=1) {
+        if (val=colon_set.show) {
             console.log(val);
             _buf[9] = _buf[9] | 0b10000000;
             _buf[10] = _buf[10] | 0b00100000;
