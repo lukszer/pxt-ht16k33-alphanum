@@ -257,10 +257,14 @@ namespace HT16K33 {
     export function dis_colon(val: string): void {
         _buf[0] = 0x02;
 
-        _buf[9] = _buf[9] | 0b10000011;
+        _buf[9] = _buf[9] | 0b10000001;
         _buf[10] = _buf[10] | 0b00000000;
         send_number();
         
+        pause(5000);
+        _buf[9] = _buf[9] | 0b00000000;
+        _buf[10] = _buf[10] | 0b00000000;
+        send_number();
 
         //console.log(Math.floor((val % 1000) / 100));
         //console.log(Math.floor((val % 100) / 10));
