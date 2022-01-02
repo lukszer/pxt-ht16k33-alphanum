@@ -6,9 +6,9 @@
 
 enum colon_set {
     //% block="show"
-    show = 1,
+    show,
     //% block="hidde"
-    hidde = 0
+    hidde
 }
 
 
