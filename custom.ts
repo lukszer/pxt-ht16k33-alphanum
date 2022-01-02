@@ -4,6 +4,14 @@
 * Czytaj więcej na https://makecode.microbit.org/blocks/custom
 */
 
+enum colon_set {
+    //% block=1
+    show,
+    //% block=2
+    hidde
+}
+
+
 /**
  * Alphanumeric display blocks
  */
@@ -251,20 +259,22 @@ namespace HT16K33 {
 
     /**
     * Display colon :
-    * @param val to dispaly
     */
-    //% weight=80 block="Colon %val"
-    export function dis_colon(val: string): void {
+    //% weight=80 block="Colon : %val"
+    export function dis_colon(val: colon_set): void {
         _buf[0] = 0x02;
 
-        _buf[9] = _buf[9] | 0b10000000;
-        _buf[10] = _buf[10] | 0b10000000;
-        send_number();
-        
-        pause(5000);
-        _buf[9] = _buf[9] | 0b00000000;
-        _buf[10] = _buf[10] | 0b00000000;
-        send_number();
+        if (val=1) {
+            _buf[9] = _buf[9] | 0b10000000;
+            _buf[10] = _buf[10] | 0b00100000;
+            send_number();
+        } else {
+            _buf[9] = _buf[9] & 0b01111111;
+            _buf[10] = _buf[10] & 0b11011111;
+            send_number();
+        }
+
+
 
         //console.log(Math.floor((val % 1000) / 100));
         //console.log(Math.floor((val % 100) / 10));
