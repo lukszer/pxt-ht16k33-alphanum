@@ -80,6 +80,8 @@ namespace HT16K33 {
 
     function set_brighntess (value: number):void
     {
+        if (value > 15 ) {value = 15}
+        if (value < 0) {value = 0}
         send (0xe0 | value); //suma bitowa value=0..15
     }
 
