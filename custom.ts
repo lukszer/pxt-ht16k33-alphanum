@@ -258,7 +258,7 @@ namespace HT16K33 {
         _buf[0] = 0x02;
 
         _buf[9] = _buf[9] | 0b10000000;
-        _buf[10] = _buf[10] | 0b00000000;
+        _buf[10] = _buf[10] | 0b10000000;
         send_number();
         
         pause(5000);
