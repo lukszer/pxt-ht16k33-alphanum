@@ -5,9 +5,9 @@
 */
 
 enum colon_set {
-    //% block="show"
+    //% block="on"
     show=1,
-    //% block="hidde"
+    //% block="off"
     hidde=2
 }
 
@@ -170,6 +170,8 @@ namespace HT16K33 {
     * @param bright from 0 to 15. eg: 10
     */
     //% weight=95 block="Brightness %bright"
+    //% bright.min=0 bright.max=15
+    //% bright.fieldOptions.precision=1
     export function set_bright(bright: number): void {
         set_brighntess(bright);
     }
