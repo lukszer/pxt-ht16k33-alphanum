@@ -263,14 +263,12 @@ namespace HT16K33 {
     //% weight=80 block="Colon : %val"
     export function dis_colon(val: colon_set): void {
         _buf[0] = 0x02;
-
-        if (val=colon_set.show) {
-            console.log(val);
+        console.log(val);
+        if (val = colon_set.show) {
             _buf[9] = _buf[9] | 0b10000000;
             _buf[10] = _buf[10] | 0b00100000;
             send_number();
         } else {
-            console.log(val);
             _buf[9] = _buf[9] & 0b01111111;
             _buf[10] = _buf[10] & 0b11011111;
             send_number();
